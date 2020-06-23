@@ -15,7 +15,7 @@ module Verkilo
       @data
     end
     def write
-      fname = self.filename
+      fname = self.filename + '.test'
       FileUtils.mkdir_p(File.dirname(fname))
       f = File.open(fname,'w')
       f.write(@data.to_yaml)

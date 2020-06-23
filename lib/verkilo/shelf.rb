@@ -5,16 +5,19 @@ module Verkilo
       @books = []
       @wordcount = Hash.new
     end
-    alias :title :to_s
     def to_s
       File.basename(@root_dir)
     end
-    def wordcount
+    alias title to_s
+
+    def to_i
       self.books.each do |b|
-        @wordcount[b.title] = b.wordcount
+        @wordcount[b.title] = b.to_i
       end
       return @wordcount
     end
+    alias wordcount to_i
+    
     def books
       return @books unless @books.empty?
       @books = Dir["#{@root_dir}/**/.book"].map do |book_flag|

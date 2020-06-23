@@ -5,16 +5,21 @@ module Verkilo
       @root_dir = root_dir
       @contents = ""
     end
-    def title
-      @title
-    end
+
     def contents
       @contents unless @contents.nil?
       @contents = files.map { |f| File.open(f,'r').read }.join("\n\n")
     end
-    def wordcount
+
+    def to_s
+      @title
+    end
+    alias title to_s
+
+    def to_i
       self.contents.gsub(/[^a-zA-Z\s\d]/,"").split(/\W+/).count
     end
+    alias wordcount to_i
     protected
       def files
         Dir["./#{@root_dir}/**/*.md"].sort
