@@ -22,10 +22,14 @@ module Verkilo
 
     desc "wordcount", "Wordcount the books in the repository and write to YAML file."
     map %w(-w --wordcount) => :wordcount
-    method_options %w( offset -o ) => "00:00"
     def wordcount(root_dir=".")
-      puts "Applying UTC Offset #{options[:offset]}"
-      Verkilo::Wordcount.run(root_dir, options[:offset])
+      shelf = Verkilo::Shelf.new(root_dir)
+      wc = Hash.new
+      shelf.books.each do |b|
+        wc[b.title] = b.wordcount
+      end
+      # wc = Verkilo::Wordcount.new(root_dir)
+      puts wc.inspect
     end
     desc "version", "Prints the Verkilo's version information"
     map %w(-v --version) => :version

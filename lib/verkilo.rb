@@ -6,9 +6,9 @@ module Verkilo
 
   # require "verkilo/extensions/string"
   require "verkilo/cli"
-  require "verkilo/source_list"
+  require "verkilo/book"
   require "verkilo/build"
-  require "verkilo/wordcount"
+  require "verkilo/shelf"
   # require "verkilo/exporter/base"
   # require "verkilo/exporter/pdf"
   # require "verkilo/exporter/html"
@@ -37,7 +37,4 @@ module Verkilo
   def self.logger
      @logger ||= Logger.new(File.open("/tmp/verkilo.log", "a"))
   end
-  # def self.hi
-  #   puts "hi"
-  # end
 end
