@@ -3,6 +3,17 @@ module Verkilo
     def initialize(root_dir)
       @root_dir = root_dir
       @books = []
+      @wordcount = Hash.new
+    end
+    alias :title :to_s
+    def to_s
+      File.basename(@root_dir)
+    end
+    def wordcount
+      self.books.each do |b|
+        @wordcount[b.title] = b.wordcount
+      end
+      return @wordcount
     end
     def books
       return @books unless @books.empty?

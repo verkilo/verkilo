@@ -23,13 +23,12 @@ module Verkilo
     desc "wordcount", "Wordcount the books in the repository and write to YAML file."
     map %w(-w --wordcount) => :wordcount
     def wordcount(root_dir=".")
-      shelf = Verkilo::Shelf.new(root_dir)
-      wc = Hash.new
-      shelf.books.each do |b|
-        wc[b.title] = b.wordcount
-      end
-      # wc = Verkilo::Wordcount.new(root_dir)
-      puts wc.inspect
+      shelf  = Verkilo::Shelf.new(root_dir)
+      wc_log = Verkilo::Log.new('wordcount',root_dir)
+      wc_log.data = shelf.wordcount
+      wc_log.write
+
+      puts "Wordcount for #{shelf}: #{shelf.wordcount.to_yaml}"
     end
     desc "version", "Prints the Verkilo's version information"
     map %w(-v --version) => :version

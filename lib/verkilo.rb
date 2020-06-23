@@ -8,6 +8,7 @@ module Verkilo
   require "verkilo/cli"
   require "verkilo/book"
   require "verkilo/build"
+  require "verkilo/log"
   require "verkilo/shelf"
   # require "verkilo/exporter/base"
   # require "verkilo/exporter/pdf"

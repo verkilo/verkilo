@@ -15,7 +15,7 @@ module Verkilo
     def wordcount
       self.contents.gsub(/[^a-zA-Z\s\d]/,"").split(/\W+/).count
     end
-    private
+    protected
       def files
         Dir["./#{@root_dir}/**/*.md"].sort
       end
