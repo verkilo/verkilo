@@ -6,8 +6,9 @@ module Verkilo
 
   # require "verkilo/extensions/string"
   require "verkilo/cli"
-  # require "verkilo/dependency"
-  # require "verkilo/exporter"
+  require "verkilo/source_list"
+  require "verkilo/build"
+  require "verkilo/wordcount"
   # require "verkilo/exporter/base"
   # require "verkilo/exporter/pdf"
   # require "verkilo/exporter/html"
