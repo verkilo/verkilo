@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+    spec.metadata["allowed_push_host"] = "http://rubygems.com"
 
     spec.metadata["homepage_uri"] = spec.homepage
     spec.metadata["source_code_uri"] = "https://github.com/verkilo/verkilo"
@@ -37,6 +37,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.17"
-  spec.add_development_dependency "rake", "~> 12.3.3"
-  spec.add_dependency "thor"
+  spec.add_development_dependency "rake", "~> 12.3.3", '>= 12.3.3'
+  spec.add_dependency "thor", '~> 0
 end
