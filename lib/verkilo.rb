@@ -7,19 +7,8 @@ module Verkilo
   # require "verkilo/extensions/string"
   require "verkilo/cli"
   require "verkilo/book"
-  require "verkilo/compile"
   require "verkilo/log"
   require "verkilo/shelf"
-  # require "verkilo/exporter/base"
-  # require "verkilo/exporter/pdf"
-  # require "verkilo/exporter/html"
-  # require "verkilo/exporter/epub"
-  # require "verkilo/exporter/mobi"
-  #
-  # require "verkilo/generator"
-  # require "verkilo/stats"
-  # require "verkilo/stream"
-  # require "verkilo/toc"
   require 'verkilo/version'
 
   Encoding.default_internal = "utf-8"

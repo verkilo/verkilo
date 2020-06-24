@@ -36,7 +36,18 @@ $for(classoption)$
   $classoption$$sep$,
 $endfor$
 ]{$documentclass$}
-\input{/usr/local/share/templates/packages}
+% \input{/usr/local/share/templates/packages}
+\usepackage{graphicx}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{adforn}
+\usepackage{pifont}
+\usepackage{fixltx2e} % provides \textsubscript
+\DisemulatePackage{setspace}
+\DisemulatePackage{crop}
+\renewcommand*{\maketitle}{}
+
 
 $if(beamer)$
 $if(background-image)$
