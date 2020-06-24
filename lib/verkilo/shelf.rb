@@ -1,6 +1,8 @@
 module Verkilo
   class Shelf
     def initialize(root_dir)
+      cmd = "basename -s .git `git config --get remote.origin.url`"
+      @repo = `#{cmd}`.strip || root_dir
       @root_dir = root_dir
       @books = []
       @wordcount = Hash.new
@@ -17,13 +19,13 @@ module Verkilo
       return @wordcount
     end
     alias wordcount to_i
-    
+
     def books
       return @books unless @books.empty?
       @books = Dir["#{@root_dir}/**/.book"].map do |book_flag|
         dir = File.dirname(book_flag)
         title = File.basename(dir)
-        Book.new(title, dir)
+        Book.new(title, dir, @repo)
       end
     end
   end
