@@ -3,6 +3,7 @@ module Verkilo
     def initialize(title, root_dir, repo="none")
       @title = title
       @root_dir = root_dir
+      @resource_dir = File.join(File.dirname(File.expand_path(__FILE__)), '../../resources')
       @contents = ""
       @today = Time.now.strftime("%F")
       @repo = repo
@@ -28,7 +29,6 @@ module Verkilo
     def compile(dir=".")
       @build_dir = File.join(dir, 'build', @title)
       FileUtils.mkdir_p(@build_dir)
-      # puts "Compiling '#{@title}'"
       src = File.join("/tmp", "#{@title}.md")
       f = File.new(src,'w')
       f.write(self.contents)
@@ -52,27 +52,27 @@ module Verkilo
         return fname
       end
       def flags(action=nil)
-        templates_dir = "/usr/local/share/templates/"
+        templates_dir = @resource_dir
         css_file = if File.exist?(".verkilo/style.css")
           ".verkilo/style.css"
         else
-          "#{templates_dir}style.css"
+          File.join([templates_dir, "style.css"])
         end
 
         f = %Q(
-          --lua-filter #{templates_dir}latex.lua \
+          --lua-filter #{File.join([templates_dir, "latex.lua"])} \
           --metadata-file=.verkilo/defaults.yml \
           --fail-if-warnings
         ) + case action
           when 'docx'
             %Q(
-              --reference-doc=#{templates_dir}reference.docx
+              --reference-doc=#{File.join([templates_dir, "reference.docx"])}
             )
           when 'epub'
             %Q(
               --css=#{css_file} \
               --epub-cover-image=#{epub_image} \
-              --template=#{templates_dir}epub.html \
+              --template=#{File.join([templates_dir, "epub.html"])} \
               --webtex
             )
           when 'html'
@@ -80,7 +80,7 @@ module Verkilo
               --css=#{css_file} \
               --self-contained \
               --standalone --to=html5 \
-              --template=#{templates_dir}epub.html \
+              --template=#{File.join([templates_dir, "epub.html"])} \
               --html-q-tags
               --webtex
             )
@@ -88,7 +88,7 @@ module Verkilo
             %Q(
               -B #{File.join(['/tmp',"#{@title}-frontmatter.tex"])} \
               --pdf-engine=xelatex \
-              --template=#{templates_dir}template.tex \
+              --template=#{File.join([templates_dir, "template.tex"])} \
               -V documentclass=memoir \
               -V has-frontmatter=true \
               -V indent=true \
@@ -99,12 +99,12 @@ module Verkilo
           when 'yaml'
             %Q(
               -t markdown \
-              --template=#{templates_dir}yaml.md
+              --template=#{File.join([templates_dir, "yaml.md"])}
             )
           when 'frontmatter'
             %Q(
               --pdf-engine=xelatex
-              --template=#{templates_dir}#{action}.tex
+              --template=#{File.join([templates_dir, "#{action}.tex"])}
             )
           else
             ""

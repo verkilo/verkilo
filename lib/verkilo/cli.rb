@@ -9,8 +9,11 @@ module Verkilo
       shelf  = Verkilo::Shelf.new(root_dir)
       puts "Compiling #{shelf}"
       shelf.books.each do |book|
-        book.compile
+        fork do
+          book.compile
+        end
       end
+      Process.waitall
     end
     desc "proof", "Convert Markdown files in book directory into PDF, EPUB, HTML & DOCX"
     map %w(-p --proof) => :proof
