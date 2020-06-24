@@ -7,7 +7,7 @@ module Verkilo
   # require "verkilo/extensions/string"
   require "verkilo/cli"
   require "verkilo/book"
-  require "verkilo/build"
+  require "verkilo/compile"
   require "verkilo/log"
   require "verkilo/shelf"
   # require "verkilo/exporter/base"

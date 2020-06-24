@@ -1,4 +1,4 @@
-require 'fileutils'
+# require 'fileutils'
 require 'yaml'
 module Verkilo
   class Log
@@ -15,7 +15,7 @@ module Verkilo
       @data
     end
     def write
-      fname = self.filename + '.test'
+      fname = self.filename
       FileUtils.mkdir_p(File.dirname(fname))
       f = File.open(fname,'w')
       f.write(@data.to_yaml)

@@ -2,13 +2,14 @@ require 'thor'
 require 'verkilo/version'
 module Verkilo
   class CLI < Thor
-    desc "build", "Convert Markdown files in book directory into PDF, EPUB, HTML & DOCX"
-    map %w(-b --build) => :build
-    def build(name)
-      puts "Building #{name}"
-      Build.new
+    desc "compile", "Convert Markdown files in book directory into PDF, EPUB, HTML & DOCX"
+    map %w(-c --compile) => :compile
+    def compile(root_dir=".")
+      shelf  = Verkilo::Shelf.new(root_dir)
+      puts "Compiling #{shelf}"
+      c = Verkilo::Compile.new(root_dir)
     end
-    desc "build", "Convert Markdown files in book directory into PDF, EPUB, HTML & DOCX"
+    desc "proof", "Convert Markdown files in book directory into PDF, EPUB, HTML & DOCX"
     map %w(-p --proof) => :proof
     def proof(root_dir=".")
       puts "Proofing #{root_dir}"
@@ -28,7 +29,7 @@ module Verkilo
       wc_log.data = shelf.wordcount
       wc_log.write
 
-      puts "Wordcount for #{shelf}: #{shelf.wordcount.to_yaml}"
+      puts "Wordcount for #{shelf}: #{shelf.wordcount.to_yaml}Written to #{wc_log.filename}"
     end
     desc "version", "Prints the Verkilo's version information"
     map %w(-v --version) => :version
