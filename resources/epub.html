@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops"$if(lang)$ xml:lang="$lang$"$endif$>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="FRED Verkilo (pandoc)" />
+  <title>$pagetitle$</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+      h1,h2,h3,h4{font-family: sans-serif;}
+$if(quotes)$
+      q { quotes: "“" "”" "‘" "’"; }
+$endif$
+  </style>
+$if(highlighting-css)$
+  <style type="text/css">
+$highlighting-css$
+  </style>
+$endif$
+$for(css)$
+  <link rel="stylesheet" type="text/css" href="$css$" />
+$endfor$
+$for(header-includes)$
+  $header-includes$
+$endfor$
+</head>
+<body$if(coverpage)$ id="cover"$endif$$if(body-type)$ epub:type="$body-type$"$endif$>
+$if(titlepage)$
+<section epub:type="titlepage" class='frontmatter'>
+$for(title)$
+$if(title.type)$
+  <h1 class="$title.type$">$title.text$</h1>
+$else$
+  <h1 class="title">$title$</h1>
+$endif$
+$endfor$
+$if(subtitle)$
+  <p class="subtitle">$subtitle$</p>
+$endif$
+$for(author)$
+  <p class="author">$author$</p>
+$endfor$
+$for(creator)$
+  <p class="$creator.role$">$creator.text$</p>
+$endfor$
+$if(publisher)$
+  <p class="publisher">$publisher$</p>
+$endif$
+$if(date)$
+  <p class="date">$date$</p>
+$endif$
+$if(rights)$
+  <div class="rights">$rights$</div>
+$endif$
+$if(isbn)$
+  <ul class="credits">
+  $for(isbn)$
+    <li>$isbn$</li>
+  $endfor$
+  </ul>
+$endif$
+$if(reservation)$
+  <div class="reservation">$reservation$</div>
+$endif$
+$if(disclaimer)$
+  <div class="disclaimer">$disclaimer$</div>
+$endif$
+
+<ul class='credits'>
+<li> Interior Design: Merovex Press </li>
+$for(credits)$
+  <li>$credits$</li>
+$endfor$
+</ul>
+
+$for(author)$
+  <p>
+  $author$
+  </p>
+$endfor$
+
+$if(website)$
+  <p>
+   Visit us at <a href="$website$">$website$</a>
+  </p>
+$endif$
+
+$if(country)$
+<p>
+$country$
+</p>
+$endif$
+</section>
+$else$
+$for(include-before)$
+$include-before$
+$endfor$
+$body$
+$for(include-after)$
+$include-after$
+$endfor$
+$endif$
+</body>
+</html>
