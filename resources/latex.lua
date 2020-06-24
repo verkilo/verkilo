@@ -126,7 +126,7 @@ function Pandoc(doc)
 
     if (meta.fontsize == nil)  then meta.fontsize  = "10pt" end
     if (meta.pagestyle == nil) then meta.pagestyle  = "myheadings" end
-    print("Words.."..wchar)
+    -- print("Words.."..wchar)
   end
   return pandoc.Pandoc(doc.blocks, meta)
 end

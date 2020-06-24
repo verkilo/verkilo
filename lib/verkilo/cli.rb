@@ -5,7 +5,7 @@ module Verkilo
     desc "compile", "Convert Markdown files in book directory into PDF, EPUB, HTML & DOCX"
     map %w(-c --compile) => :compile
     def compile(root_dir=".")
-
+      say "Verkilo v#{Verkilo::VERSION}"
       shelf  = Verkilo::Shelf.new(root_dir)
       puts "Compiling #{shelf}"
       shelf.books.each do |book|
