@@ -2,11 +2,11 @@
 require 'yaml'
 module Verkilo
   class Log
-    def initialize(type, root_dir)
+    def initialize(type, root_dir, offset)
       @type = type
       @root_dir = root_dir
       @data = YAML.load(read_file)
-      @today = Time.now.strftime("%F")
+      @today = Time.now.getlocal(offset).strftime("%F")
     end
     def data=(h)
       @data = @data.merge({@today => h})

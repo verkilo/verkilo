@@ -117,7 +117,7 @@ module Verkilo
         csl = (@csl.nil?) ? "" : " --csl #{csl}"
 
         cmd = "pandoc -o #{fname} #{flags(action)} #{src}"
-        puts "%15s .. %11s => %s %s" % [@title, action, fname, `#{cmd}`]
+        puts "%#{10}s .. %-11s => %s %s" % [@title, action, fname, `#{cmd}`]
       end
   end
 end
