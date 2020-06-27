@@ -35,33 +35,41 @@ LONGDESC
 
     desc "wordcount", "Wordcount the books in the repository and write to YAML file."
     map %w(-w --wordcount) => :wordcount
+    method_option :log, :type => :boolean
+    method_option :delta, :type => :boolean
     method_option :offset
     long_desc <<-LONGDESC
   `verkilo wordcount` will count all the words
-  \x5 in Markdown files in .book directories. The
-  \x5 result will be added to a wordcount log YAML
-  \x5 file inside the project's Verkilo configuration
-  \x5 directory.
+  \x5 in Markdown files in .book directories.
 
-   You can optionally specify a second parameter,
-  \x5 which will offset the date based on timezone.
-  \x5 This is helpful when you are running this via
-  \x5 a server or CI platform that uses a different
-  \x5 timezone from your own.
+  With the --log flag, the result will be added
+  \x5 to a wordcount log YAML file inside the
+  \x5 project's Verkilo configuration directory.
+
+  With the --offset flag, which will offset the
+  \x5  date based on timezone.This is helpful
+  \x5 when you are running this viaa server or
+  \x5 CI platform that uses a different timezone
+  \x5 from your own. (E.g. Github runs UTC)
 
   See the Verkilo website (https://verkilo.com) for details
 
-  > $ verkilo wordcount --offset=-08:00
+  > $ verkilo wordcount --offset=-08:00 --log
 LONGDESC
     def wordcount
       is_verkilo_project!
+      log = options["log"] || false
       offset = options["offset"] || nil
+      delta = options["delta"] || false
       shelf  = Verkilo::Shelf.new(root_dir)
-      wc_log = Verkilo::Log.new('wordcount',root_dir, offset)
-      wc_log.data = shelf.wordcount
-      wc_log.write
-
-      say "Wordcount for #{shelf}: #{shelf.wordcount.to_yaml}Written to #{wc_log.filename}"
+      say "Wordcount for #{shelf}: #{shelf.wordcount.to_yaml}"
+      if log
+        wc_log = Verkilo::Log.new('wordcount',root_dir, offset)
+        wc_log.data = shelf.wordcount
+        wc_log.delta! unless delta.nil?
+        wc_log.write
+        say "Written to #{wc_log.filename}"
+      end
     end
     desc "version", "Prints the Verkilo's version information"
     map %w(-v --version) => :version

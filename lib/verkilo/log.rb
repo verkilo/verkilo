@@ -8,6 +8,26 @@ module Verkilo
       @data = YAML.load(read_file)
       @today = Time.now.getlocal(offset).strftime("%F")
     end
+    def delta!(target='_total')
+      change = 0
+      last = nil
+      keys = @data.keys
+      ckey = target.sub(/_/,'_Δ')
+      until keys.empty? do
+        k = keys.shift
+        total!(k)
+        now = @data[k][target] || 0
+        change = (last.nil?) ? 0 : now - last
+        @data[k].merge!({ckey => change})
+        last = now
+      end
+    end
+    def total!(k=nil)
+      k ||= @today
+      @data[k]["_total"] = @data[k].map {
+        |k,v| (/^_/.match?(k)) ? 0 : v
+      }.inject(0, :+)
+    end
     def data=(h)
       @data = @data.merge({@today => h})
     end

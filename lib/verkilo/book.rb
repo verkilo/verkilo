@@ -4,7 +4,9 @@ module Verkilo
       @title = title
       @root_dir = root_dir
       @resource_dir = File.join(File.dirname(File.expand_path(__FILE__)), '../../resources')
-      @contents = ""
+      @contents = nil
+      @wc = nil
+      @files = nil
       @today = Time.now.strftime("%F")
       @repo = repo
       @bib = Dir["#{@root_dir}/**/*.bib"].first || nil
@@ -12,8 +14,7 @@ module Verkilo
     end
 
     def contents
-      @contents unless @contents.nil?
-      @contents = files.map { |f| File.open(f,'r').read }.join("\n\n")
+      @contents ||= files.map { |f| File.open(f,'r').read }.join("\n\n")
     end
 
     def to_s
@@ -22,7 +23,7 @@ module Verkilo
     alias title to_s
 
     def to_i
-      self.contents.gsub(/[^a-zA-Z\s\d]/,"").split(/\W+/).count
+      @wc ||= self.contents.gsub(/[^a-zA-Z\s\d]/,"").split(/\W+/).count
     end
     alias wordcount to_i
 
@@ -44,7 +45,7 @@ module Verkilo
 
     protected
       def files
-        Dir["./#{@root_dir}/**/*.md"].sort
+        @files ||= Dir["#{@root_dir}/**/*.md"].sort
       end
       def epub_image
         fname = File.join(['.', 'covers', "#{@title}-epub.png"])
