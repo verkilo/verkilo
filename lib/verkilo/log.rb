@@ -5,7 +5,7 @@ module Verkilo
     def initialize(type, root_dir, offset)
       @type = type
       @root_dir = root_dir
-      @data = YAML.load(read_file)
+      @data = YAML.load(read_file) || {}
       @today = Time.now.getlocal(offset).strftime("%F")
     end
     def delta!(target='_total')
