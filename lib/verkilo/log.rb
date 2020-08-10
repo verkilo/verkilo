@@ -29,6 +29,8 @@ module Verkilo
       }.inject(0, :+)
     end
     def data=(h)
+      # Don't clobber existing data.
+      h.merge(@data[@today].to_h) if @data.keys.include?(@today)
       @data = @data.merge({@today => h})
     end
     def data
