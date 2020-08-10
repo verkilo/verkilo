@@ -30,8 +30,8 @@ module Verkilo
     end
     def data=(h)
       # Don't clobber existing data.
-      h.merge(@data[@today].to_h) if @data.keys.include?(@today)
-      @data = @data.merge({@today => h})
+      h.merge!(@data[@today].to_h) if @data.keys.include?(@today)
+      @data.merge!({@today => h})
     end
     def data
       @data
